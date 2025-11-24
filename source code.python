@@ -1,0 +1,26 @@
+import datetime
+import time
+import os
+
+# Get alarm time from user
+alarm_time = input("Enter alarm time in HH:MM format: ")
+
+# Convert input to hour and minute
+alarm_hour, alarm_minute = map(int, alarm_time.split(":"))
+
+print(f"Alarm is set for {alarm_hour:02d}:{alarm_minute:02d}")
+
+while True:
+    # Get current time
+    now = datetime.datetime.now()
+    if now.hour == alarm_hour and now.minute == alarm_minute:
+        print("Wake up!")
+        # Platform-specific beep
+        if os.name == 'nt':  # Windows
+            import winsound
+            winsound.Beep(1000, 1000)
+        else:  # Mac/Linux
+            os.system('say "Wake up!"')
+        break
+    time.sleep(10)
+    
